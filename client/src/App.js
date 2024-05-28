@@ -2,12 +2,20 @@ import { useEffect, useState } from "react";
 
 const App = () => {
   const [images, setImages] = useState([]);
+  const [tags, setTags] = useState([]);
+  const [page, setPage] = useState(1);
+  const [filter, setFilter] = useState("");
 
+  const url = `http://localhost:5000/api/photos?${
+    filter && `tag=${filter}&`
+  }page=${page}`;
   const fetchData = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/photos");
+      const res = await fetch(url);
       const data = await res.json();
       setImages(data.data);
+      setTags(data.tags);
+      // console.log("---data---", data);
     } catch (error) {
       console.log("---error---", error);
     }
@@ -15,7 +23,7 @@ const App = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [page, filter]);
 
   if (!images.length === 0) {
     return <>Lodaing...</>;
@@ -37,6 +45,14 @@ const App = () => {
   return (
     <>
       <div className="App">
+        <ul>
+          {tags &&
+            tags.map((tag, index) => (
+              <span key={index}>
+                <li onClick={() => setFilter(tag)}>{tag}</li>
+              </span>
+            ))}
+        </ul>
         <div>
           {images.map((image) => (
             <div key={image.id}>
@@ -49,8 +65,8 @@ const App = () => {
           ))}
         </div>
         <div>
-          <button>{"<"}</button>
-          <button>{">"}</button>
+          <button onClick={() => setPage(page - 1)}>{"<"}</button>
+          <button onClick={() => setPage(page + 1)}>{">"}</button>
         </div>
       </div>
     </>

@@ -1,7 +1,8 @@
 export type Photo = {
-  title: string;
-  link: string;
-  media: {
+  id?: number;
+  title?: string;
+  link?: string;
+  media?: {
     m: string;
   };
   published: string;
@@ -14,3 +15,9 @@ export type PhotoId = {
 };
 
 export type PhotoIds = string[];
+
+export type Tag = {
+  tags: string;
+};
+
+export type Tags = Tag[];
