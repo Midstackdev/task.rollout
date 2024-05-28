@@ -5,6 +5,7 @@ import routes from "./routes";
 import cors from "cors";
 import db, { pool } from "./database";
 import { fetchAndStorePhotos } from "./sripts/fetchPhotos";
+import "./jobs/index";
 
 const PORT = config.port;
 
@@ -36,7 +37,7 @@ async function createPhotosTable() {
 
 createPhotosTable();
 
-// fetchAndStorePhotos();
+fetchAndStorePhotos();
 
 app.use("/api", routes);
 

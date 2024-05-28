@@ -55,7 +55,7 @@ const fetchAndStorePhotos = async () => {
         console.error("Error fetching photos:", error);
       }
     }
-  }, 500 * index);
+  }, 200 * index);
 };
 
 export { fetchAndStorePhotos };
