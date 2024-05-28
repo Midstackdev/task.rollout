@@ -11,9 +11,9 @@ const {
   MYSQL_DB_TEST,
   MYSQL_USER,
   MYSQL_PASSWORD,
-  BCRYPT_PEPPER,
-  SALT_ROUNDS,
-  JWT_SECRET,
+  FLICKER_KEY,
+  FLICKER_API_KEY,
+  FLICKER_SECERT,
 } = process.env;
 
 export default {
@@ -23,7 +23,7 @@ export default {
   dbName: NODE_ENV === "dev" ? MYSQL_DB : MYSQL_DB_TEST,
   dbUser: MYSQL_USER,
   dbPassword: MYSQL_PASSWORD,
-  pepper: BCRYPT_PEPPER,
-  salt: SALT_ROUNDS,
-  jwtSecret: JWT_SECRET,
+  flikerKey: FLICKER_KEY ?? "",
+  flikerApiKey: FLICKER_API_KEY ?? "",
+  flikerSecret: FLICKER_SECERT,
 };

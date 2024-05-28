@@ -1,8 +1,8 @@
 import { Router } from "express";
-// import userRoutes from './api/users.routes';
+import photoRoutes from "./photos";
 
 const routes = Router();
 
-// routes.use('/users', userRoutes);
+routes.use("/photos", photoRoutes);
 
 export default routes;

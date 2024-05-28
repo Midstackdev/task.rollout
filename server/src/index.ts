@@ -3,6 +3,7 @@ import errorMiddleware from "./middlewares/errorMiddleware";
 import config from "./config";
 import routes from "./routes";
 import db, { pool } from "./database";
+import { fetchAndStorePhotos } from "./sripts/fetchPhotos";
 
 const PORT = config.port;
 
@@ -19,8 +20,8 @@ async function createPhotosTable() {
           CREATE TABLE IF NOT EXISTS photos (
             id INT AUTO_INCREMENT PRIMARY KEY,
             published_date DATETIME,
-            image_url VARCHAR(255),
-            tags VARCHAR(255)
+            image_url LONGTEXT,
+            tags LONGTEXT
           )
       `);
     console.log("Photos table created successfully");
@@ -32,6 +33,8 @@ async function createPhotosTable() {
 }
 
 createPhotosTable();
+
+fetchAndStorePhotos();
 
 app.use("/api", routes);
 
