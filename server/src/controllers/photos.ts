@@ -53,3 +53,20 @@ export const getPhotos = async (
   //     });
   //   });
 };
+
+export const deletePhoto = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.params;
+    const sql = "DELETE from photos where id=?";
+    const rows = await pool.query(sql, [id]);
+    return res.status(200).json({
+      data: rows[0],
+    });
+  } catch (error) {
+    next(error);
+  }
+};

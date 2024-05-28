@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from "express";
 import errorMiddleware from "./middlewares/errorMiddleware";
 import config from "./config";
 import routes from "./routes";
+import cors from "cors";
 import db, { pool } from "./database";
 import { fetchAndStorePhotos } from "./sripts/fetchPhotos";
 
@@ -9,6 +10,7 @@ const PORT = config.port;
 
 const app: Application = express();
 
+app.use(cors());
 app.use(express.json());
 
 //create table
@@ -34,7 +36,7 @@ async function createPhotosTable() {
 
 createPhotosTable();
 
-fetchAndStorePhotos();
+// fetchAndStorePhotos();
 
 app.use("/api", routes);
 
