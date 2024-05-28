@@ -1,6 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { pool } from "../database";
 import { Photo, Tag, Tags } from "../types";
+import PhotoModel from "../models/photo";
+
+const photoModel = new PhotoModel();
 
 export const getPhotos = async (
   req: Request,
@@ -53,8 +56,7 @@ export const deletePhoto = async (
 ) => {
   try {
     const { id } = req.params;
-    const sql = "DELETE from photos where id=?";
-    const rows = await pool.query(sql, [id]);
+    const rows = await photoModel.remove(id);
     return res.status(200).json({
       data: rows[0],
     });

@@ -5,7 +5,7 @@ export type Photo = {
   media?: {
     m: string;
   };
-  published: string;
+  published: string | number;
   tags: string;
   url: string;
 };

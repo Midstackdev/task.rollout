@@ -1,8 +1,9 @@
-import axios from "axios";
 import { Photo, PhotoId, PhotoIds } from "../types";
-import db, { pool } from "../database";
 import config from "../config";
 import { createFlickr } from "flickr-sdk";
+import PhotoModel from "../models/photo";
+
+const photoModel = new PhotoModel();
 
 // Search for cat tagged photos
 const { flickr } = createFlickr(config.flikerApiKey);
@@ -37,7 +38,7 @@ const fetchAndStorePhotos = async () => {
           photo_id: id,
         });
         const hint = res.photo;
-        const data = {
+        const data: Photo = {
           published: +hint.dates.posted,
           url: hint.urls.url[0]._content,
           tags: hint.tags.tag
@@ -47,10 +48,7 @@ const fetchAndStorePhotos = async () => {
             .join(","),
         };
         console.log("--flk---", data);
-        pool.query(
-          "INSERT INTO photos (published_date, image_url, tags) VALUES (?, ?, ?)",
-          [new Date(data.published), data.url, data.tags]
-        );
+        photoModel.create(data);
       } catch (error) {
         console.error("Error fetching photos:", error);
       }
