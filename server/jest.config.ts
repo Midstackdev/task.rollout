@@ -5,8 +5,9 @@ const config: Config.InitialOptions = {
   testEnvironment: "node",
   verbose: true,
   collectCoverage: false,
-  collectCoverageFrom: ["<rootDir>/src/**/*.ts"],
-  roots: ["<rootDir>/src"],
+  collectCoverageFrom: ["<rootDir>/tests/**/*.ts"],
+  roots: ["<rootDir>/tests"],
+  setupFilesAfterEnv: ["./jest.setup.ts"],
 };
 
 export default config;
